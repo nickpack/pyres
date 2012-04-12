@@ -141,7 +141,9 @@ class ResQ(object):
     """
     def __init__(self, server="localhost:6379", password=None):
         self.redis = server
+
         if password:
+            print "haz password"
             self.password = password
         self._watched_queues = set()
 
@@ -187,7 +189,8 @@ class ResQ(object):
         if isinstance(server, basestring):
             self.dsn = server
             host, port = server.split(':')
-            if self.password is not None:
+            if hasattr(self, 'password'):
+                print "hasattr"
                 self._redis = Redis(host=host, port=int(port), password=self.password)
             else:
                 self._redis = Redis(host=host, port=int(port))
